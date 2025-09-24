@@ -1,0 +1,8 @@
+{
+  "build": {
+    "env": {
+      "ROLLUP_SKIP_NODE_NATIVE": "true"
+    }
+  }
+}
+

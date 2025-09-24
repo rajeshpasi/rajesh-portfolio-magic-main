@@ -42,27 +42,27 @@ const Footer = () => {
   };
 
   return (
-    <footer className="glass-card mt-20 border-t border-glass-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="glass-card mt-20 border-t border-glass-border rounded-b-none">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
           {/* Brand & Description */}
-          <div className="space-y-4">
+          <div className="space-y-4 text-center md:text-left">
             <div className="text-2xl font-bold gradient-text">
               Rajesh Kumar Pasi
             </div>
-            <p className="text-text-secondary leading-relaxed">
+            <p className="text-text-secondary leading-relaxed max-w-md mx-auto md:mx-0">
               MERN Stack Developer & AI Enthusiast passionate about creating 
               modern web experiences and exploring cutting-edge technologies.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center md:justify-start">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-surface-glass border border-glass-border flex items-center justify-center text-text-secondary hover:text-primary-glow hover:scale-110 transition-all duration-300"
+                  className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-surface-glass border border-glass-border flex items-center justify-center text-text-secondary hover:text-primary-glow hover:scale-110 transition-all duration-300"
                   aria-label={social.label}
                 >
                   <FontAwesomeIcon icon={social.icon} />
@@ -72,16 +72,16 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
+          <div className="space-y-4 text-center md:text-left">
             <h3 className="text-lg font-semibold text-text-primary">
               Quick Links
             </h3>
-            <ul className="space-y-2">
+            <ul className="grid grid-cols-3 gap-x-6 gap-y-2 max-w-sm ml-4 md:ml-0">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-text-secondary hover:text-primary-glow transition-colors duration-300 hover:translate-x-1 transform block"
+                    className="text-text-secondary hover:text-primary-glow transition-colors duration-300 hover:-translate-y-0.5 transform block text-center"
                   >
                     {link.name}
                   </button>
@@ -91,11 +91,11 @@ const Footer = () => {
           </div>
 
           {/* Tech Stack */}
-          <div className="space-y-4">
+          <div className="space-y-4 text-center md:text-left">
             <h3 className="text-lg font-semibold text-text-primary">
               Built With
             </h3>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto md:mx-0">
               {techStack.map((tech, index) => (
                 <div 
                   key={index}
@@ -116,7 +116,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-glass-border flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-10 md:mt-12 pt-6 md:pt-8 border-t border-glass-border flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <p className="text-text-secondary text-sm">
             © {currentYear} Rajesh Kumar Pasi. All rights reserved.
           </p>

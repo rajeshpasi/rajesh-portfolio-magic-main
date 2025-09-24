@@ -191,8 +191,8 @@ const ContactSection = () => {
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <div key={index} className="flex items-center gap-4 group">
-                    <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground group-hover:scale-110 transition-transform duration-300">
-                      <FontAwesomeIcon icon={info.icon} />
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <FontAwesomeIcon icon={info.icon} className="text-base md:text-lg" />
                     </div>
                     <div>
                       <h4 className="text-text-primary font-semibold">{info.title}</h4>

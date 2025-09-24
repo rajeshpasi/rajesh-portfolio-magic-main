@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "node --no-deprecation ./node_modules/vite/bin/vite.js",
-    "build": "cross-env ROLLUP_SKIP_NODE_NATIVE=true vite build",
+    "build": "ROLLUP_SKIP_NODE_NATIVE=true vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -82,7 +82,6 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "@eslint/js": "^9.32.0",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^22.16.5",
@@ -90,12 +89,14 @@
     "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "eslint": "^9.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^15.15.0",
     "lovable-tagger": "^1.1.9",
     "postcss": "^8.4.47",
+    "rollup": "^4.21.2",
     "tailwindcss": "^3.4.14",
     "ts-interface-checker": "^1.0.2",
     "typescript": "^5.8.3",

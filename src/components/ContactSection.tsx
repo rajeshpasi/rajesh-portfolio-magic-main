@@ -18,6 +18,13 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+// EmailJS config (set these in your .env as Vite env vars)
+// Support both names to avoid misconfig: VITE_EMAILJS_PUBLIC_KEY or VITE_EMAILJS7_PUBLIC_KEY
+const EMAILJS_PUBLIC_KEY = (import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.VITE_EMAILJS7_PUBLIC_KEY) as string | undefined;
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined;
+const CONTACT_RECEIVER_EMAIL = 'rajeshpasi447@gmail.com';
+
 const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -33,6 +40,17 @@ const ContactSection = () => {
   const contactInfoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Initialize EmailJS if available via CDN; if not yet loaded, we'll init on submit
+    try {
+      const emailjs = (window as any)?.emailjs;
+      if (emailjs && EMAILJS_PUBLIC_KEY) {
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      }
+    } catch (err) {
+      // ignore init error; will retry on submit
+      console.debug('EmailJS init deferred:', err);
+    }
+
     const ctx = gsap.context(() => {
       // Contact info animation
       gsap.fromTo(contactInfoRef.current, 
@@ -103,11 +121,37 @@ const ContactSection = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const emailjs = (window as any)?.emailjs;
+      if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+        throw new Error('Email service not configured. Missing env keys');
+      }
+
+      // If library is present but not initialized yet, init now
+      if (emailjs && typeof emailjs.init === 'function') {
+        try {
+          emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+        } catch (_) {
+          // safe to ignore if already initialized
+        }
+      }
+
+      if (!emailjs || typeof emailjs.send !== 'function') {
+        throw new Error('EmailJS SDK not loaded');
+      }
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_email: CONTACT_RECEIVER_EMAIL,
+      };
+
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
+      console.error('Email send failed:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -119,13 +163,13 @@ const ContactSection = () => {
     {
       icon: faEnvelope,
       title: "Email",
-      value: "rajesh.kumar@example.com",
-      href: "mailto:rajesh.kumar@example.com"
+      value: "rajeshpasi447@gmail.com",
+      href: "mailto:rajeshpasi447@gmail.com"
     },
     {
       icon: faPhone,
       title: "Phone",
-      value: "+91 12345 67890",
+      value: "+91 xxxxxxxxxx",
       href: "tel:+911234567890"
     },
     {
@@ -139,19 +183,19 @@ const ContactSection = () => {
   const socialLinks = [
     {
       icon: faGithub,
-      href: "https://github.com",
+      href: "https://github.com/rajeshpasi",
       label: "GitHub",
       color: "hover:text-white"
     },
     {
       icon: faLinkedin,
-      href: "https://linkedin.com",
+      href: "https://www.linkedin.com/in/rajesh-kumar-pasi/",
       label: "LinkedIn",
       color: "hover:text-blue-400"
     },
     {
       icon: faTwitter,
-      href: "https://twitter.com",
+      href: "https://x.com/rajesh_india22",
       label: "Twitter",
       color: "hover:text-blue-300"
     }

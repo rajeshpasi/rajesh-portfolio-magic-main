@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import profileImage from '../assets/profile.jpg';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -131,19 +132,28 @@ const HeroSection = () => {
             >
               View My Work
             </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="btn-secondary flex items-center gap-2"
-            >
-              <FontAwesomeIcon icon={faDownload} />
-              Download CV
-            </button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button 
+                    onClick={() => scrollToSection('contact')}
+                    className="btn-secondary flex items-center gap-2"
+                  >
+                    <FontAwesomeIcon icon={faDownload} />
+                    Download CV
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  The CV is currently not available for download. Please contact me, I will send it to you manually.
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
 
           {/* Social Links */}
           <div ref={socialRef} className="flex gap-6 justify-center lg:justify-start">
             <a 
-              href="https://github.com" 
+              href="https://github.com/rajeshpasi" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-text-secondary hover:text-primary-glow transition-colors duration-300 text-2xl"
@@ -151,7 +161,7 @@ const HeroSection = () => {
               <FontAwesomeIcon icon={faGithub} />
             </a>
             <a 
-              href="https://linkedin.com" 
+              href="https://www.linkedin.com/in/rajesh-kumar-pasi/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-text-secondary hover:text-primary-glow transition-colors duration-300 text-2xl"
